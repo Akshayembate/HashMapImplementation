@@ -27,9 +27,8 @@ public:
 
     void Add(const std::string& entryString)
     {
-        int index;
         // find the entrystring is exists
-        bool exists = Find(entryString, &index);
+        bool exists = Find(entryString);
         if (exists)
             return;
         
@@ -44,14 +43,13 @@ public:
 
     void Delete(const std::string& entryString)
     {
-        int index;
-
         // find the index which is exist
-        bool exists = Find(entryString, &index);
+        bool exists = Find(entryString);
         if (!exists)
             return;
-        
-        m_Entries[index].Data.clear();
+
+        int index = GetDeleteIndex(entryString); 
+        //m_Entries[index].Data.clear();
         m_Entries[index].Status = "tombstone";           
     }
 
@@ -64,18 +62,18 @@ private:
         return (entryString.back() -'a'); // the enttrystring.back will return a value which is the last charector substrating with a will give the index in the alphebetic order 
     }  
 
-    bool Find(const std::string entryString, int* outIndex = nullptr)
+    bool Find(const std::string entryString)
     {
         // find the index of the token from the getindex function
         int index = GetIndex(entryString);
-        int startIdx = index;
+        //int startIdx = index;
 
         while (true)
         {
             // check the entry string is exist in the existing hash table
             if (m_Entries[index].Data == entryString)
-                if (outIndex)
-                    *outIndex = index;
+                //if (outIndex){
+                //   *outIndex = index;}
                 return true;
 
             // check the index is not used 
@@ -84,8 +82,8 @@ private:
             // increment the index
             index = (index + 1) % Size;
 
-            if (index == startIdx)
-                return false;
+            //if (index == startIdx)
+            //    return false;
         }
         return false;
     }
@@ -103,6 +101,20 @@ private:
             index = (index + 1) % Size;
         }
         return -1;
+    }
+
+    int GetDeleteIndex(const std::string& entryString)
+    {
+        int index = GetIndex(entryString);
+        while (true)
+        {
+            if (m_Entries[index].Data == entryString)
+            {
+                return index;
+            } 
+            index = (index + 1) % Size;  
+        }
+        
     }
 private:
     // private variables 
