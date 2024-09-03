@@ -1,0 +1,33 @@
+- marked automatically
+- failure to follow this guidlines will reselt in 0
+- no design
+- impliment a veryu specific hash table
+- keys are lower case english words
+- length of the key is mat most 10
+- hash function = simply using the last charector (eg hash of the apple is e )
+- hash function contains exactly 26 slots
+- table slots have three different status , never used ,tomb stone , occupied
+- table starts with never used
+- searching works as follows
+    - given a key take its last charector as the hash value 
+    - first try the curresponding table slots
+    - if the key is there you found it if it never used it dont exist
+    - if the key is occupied or tombstone then move to next slot 
+    - keep trying until the key is found.or were certain it doesnt exist.
+- incertion work as follows :
+    - first perfoem serch to see if key exist - if it dont do nothing 
+    - take the last charector of key as hash value
+    - if that slot is not occupied ('never used' or 'tombston")
+    - if it is occupied, try the next slot until you find a free slot.
+- Deletion works as follows:
+    - given a key, search to it to locate its slot 
+    - if found, change to "tombstone"
+- when program starts init empty hash table( "26 " never used slots)
+- command line input is  1 - 26 modification moves seperated by spaces , moves 
+    - Aword - meansinsert key word in to the hash table
+    - Dword - means delete the key word from the hash table 
+- once the output is processed output is all in the hash table that have seperated by spaces 
+- ignore invalid inputs 
+
+sample input - Aapple Aornage Dapple Astrawberry
+sample output - orange strawberry
